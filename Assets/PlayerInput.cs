@@ -37,6 +37,6 @@ public class PlayerInput : MonoBehaviour
 
     void DropPerson()
     {
-        _currentPerson.PutDown();
+        _currentPerson?.PutDown();
     }
 }

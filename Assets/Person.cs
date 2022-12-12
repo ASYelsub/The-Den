@@ -14,23 +14,23 @@ public class Person : MonoBehaviour
     private void Start()
     {
         _rigidBody = GetComponent<Rigidbody>();
+        plane = Services.PlaneManager.activePlane.gameObject;
     }
 
     private void FixedUpdate()
     {
         if (isUp)
         {
-            transform.localPosition = GetMouseAsWorldPoint() + mOffset;
+            transform.position = GetMouseAsWorldPoint() + mOffset + new Vector3(0f, mouseFloatVal, 0f);
         }
     }
 
     void OnMouseDown()
     {
         mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
-        mOffset = gameObject.transform.localPosition - GetMouseAsWorldPoint() + new Vector3(0f,mouseFloatVal,0f);
+        mOffset = gameObject.transform.position - GetMouseAsWorldPoint();
     }
 
-   
     private Vector3 GetMouseAsWorldPoint()
     {
         Vector3 mousePoint = Input.mousePosition;
@@ -39,6 +39,7 @@ public class Person : MonoBehaviour
         mousePoint.y = plane.GetComponent<Transform>().position.y;
         return mousePoint;
     }
+
     private void OnMouseUp()
     {
         PutDown();
