@@ -44,6 +44,7 @@ public class PlaneManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
+            Services.PersonManager.DisablePeople();
             ShowAllPlanes();
             ShowSiftButtons();
             _sifting = true;
@@ -51,6 +52,7 @@ public class PlaneManager : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.S))
         {
+            Services.PersonManager.EnablePeople();
             HideExtraPlanes();
             HideSiftButtons();
             _sifting = false;

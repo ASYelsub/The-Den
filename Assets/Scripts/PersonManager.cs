@@ -19,4 +19,20 @@ public class PersonManager : MonoBehaviour
     {
         allPeople.Add(p);
     }
+
+    public void EnablePeople()
+    {
+        foreach (Person p in allPeople)
+        {
+            p.gameObject.SetActive(true);
+        }
+    }
+
+    public void DisablePeople()
+    {
+        foreach (Person p in allPeople)
+        {
+            p.gameObject.SetActive(false);
+        }
+    }
 }
