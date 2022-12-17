@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -233,8 +233,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8383c4736c8a3364288208e215e4487d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseFloatVal: 0.5
+  mouseFloatVal: 1.1
   plane: {fileID: 1196758901}
+  planeMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!54 &177527877
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -249,7 +252,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!1 &210063137
 GameObject:
@@ -635,7 +638,7 @@ GameObject:
   - component: {fileID: 948189842}
   - component: {fileID: 948189841}
   - component: {fileID: 948189840}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: B1-Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -828,6 +831,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d6795f7378d98d4c9e1af18deff4548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  planeMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &994225200
 GameObject:
   m_ObjectHideFlags: 0
@@ -885,7 +891,7 @@ GameObject:
   - component: {fileID: 1196758903}
   - component: {fileID: 1196758902}
   - component: {fileID: 1196758906}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: F1-Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1096,7 +1102,7 @@ GameObject:
   - component: {fileID: 1309085245}
   - component: {fileID: 1309085244}
   - component: {fileID: 1309085243}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: F2-Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}

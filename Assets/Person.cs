@@ -7,38 +7,41 @@ public class Person : MonoBehaviour
     public float mouseFloatVal;
     bool isUp;
     public GameObject plane;
-    private Vector3 mOffset;
-    private float mZCoord;
     Rigidbody _rigidBody;
+
+    public LayerMask planeMask;
 
     private void Start()
     {
         _rigidBody = GetComponent<Rigidbody>();
         plane = Services.PlaneManager.activePlane.gameObject;
+        Debug.Log("WorldToScreenPoint value of plane from camera:" + Camera.main.WorldToScreenPoint(plane.transform.position));
     }
 
     private void FixedUpdate()
     {
-        if (isUp)
+
+        if (!isUp)
         {
-            transform.position = GetMouseAsWorldPoint() + mOffset + new Vector3(0f, mouseFloatVal, 0f);
+            return;
+        }
+        RaycastHit hitInfo;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray.origin, ray.direction, out hitInfo, Mathf.Infinity, planeMask))
+        {
+            Vector3 hitVec = hitInfo.point;
+            Debug.Log(hitInfo.transform.gameObject.name);
+            Debug.Log(hitVec);
+            transform.position = hitVec + new Vector3(0f, mouseFloatVal, 0f);
         }
     }
 
     void OnMouseDown()
     {
-        mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
-        mOffset = gameObject.transform.position - GetMouseAsWorldPoint();
+        PickUp();
+
     }
 
-    private Vector3 GetMouseAsWorldPoint()
-    {
-        Vector3 mousePoint = Input.mousePosition;
-        mousePoint.z = mZCoord;
-        mousePoint = Camera.main.ScreenToWorldPoint(mousePoint);
-        mousePoint.y = plane.GetComponent<Transform>().position.y;
-        return mousePoint;
-    }
 
     private void OnMouseUp()
     {
