@@ -42,10 +42,17 @@ public class PlaneManager : MonoBehaviour
 
     private void Update()
     {
+
+        if (Services.PersonManager.personBeingHeld)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.S))
         {
             Services.PersonManager.DisablePeople();
             ShowAllPlanes();
+            SetAppearanceAllPlanes();
             ShowSiftButtons();
             _sifting = true;
             return;
@@ -101,6 +108,29 @@ public class PlaneManager : MonoBehaviour
         }
     }
 
+
+    void SetAppearanceAllPlanes()
+    {
+        foreach (FloorPlane plane in allPlanes)
+        {
+            //This is the tester function for the set functionality
+            // Color c = plane.gameObject.GetComponent<MeshRenderer>().material.GetColor("_Color");
+            // if (activePlane.Equals(plane))
+            // {
+            //     plane.gameObject.GetComponent<MeshRenderer>().material.SetColor("_Color", new Color(c.r, c.g, c.b, 1f));
+            //     continue;
+            // }
+            // plane.gameObject.GetComponent<MeshRenderer>().material.SetColor("_Color", new Color(c.r, c.g, c.b, .5f));
+
+            if (activePlane.Equals(plane))
+            {
+                plane.SetActiveVisual();
+                continue;
+            }
+            plane.SetInactiveVisual();
+        }
+    }
+
     void HideExtraPlanes()
     {
         //Debug.Log("HideExtraPlanes call");
@@ -131,8 +161,9 @@ public class PlaneManager : MonoBehaviour
         activePlane.gameObject.GetComponent<Collider>().enabled = true;
         foreach (FloorPlane plane in allPlanes)
         {
-            plane.transform.position += new Vector3(1f, -.5f, 1f);
+            plane.transform.position += new Vector3(1f, -1f, 1f);
         }
+        SetAppearanceAllPlanes();
 
     }
 
@@ -152,8 +183,9 @@ public class PlaneManager : MonoBehaviour
         activePlane.gameObject.GetComponent<Collider>().enabled = true;
         foreach (FloorPlane plane in allPlanes)
         {
-            plane.transform.position += new Vector3(-1f, .5f, -1f);
+            plane.transform.position += new Vector3(-1f, 1f, -1f);
         }
+        SetAppearanceAllPlanes();
     }
 
 

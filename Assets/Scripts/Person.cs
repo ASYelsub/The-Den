@@ -5,10 +5,12 @@ using UnityEngine;
 public class Person : MonoBehaviour
 {
     public float mouseFloatVal;
-    bool isUp;
+    bool _isUp;
+    bool _isGrounded;
 
     Rigidbody _rigidBody;
     [SerializeField] LayerMask _planeMask;
+    PersonState _myPersonState = PersonState.defaultFloor;
 
     private void Start()
     {
@@ -18,8 +20,7 @@ public class Person : MonoBehaviour
 
     private void Update()
     {
-
-        if (!isUp)
+        if (!_isUp)
         {
             return;
         }
@@ -37,7 +38,6 @@ public class Person : MonoBehaviour
         PickUp();
     }
 
-
     void OnMouseUp()
     {
         PutDown();
@@ -45,13 +45,41 @@ public class Person : MonoBehaviour
 
     public void PickUp()
     {
-        isUp = true;
+        _myPersonState = PersonState.beingHeld;
+        _isGrounded = false;
+        _isUp = true;
         _rigidBody.useGravity = false;
+        Services.PersonManager.personBeingHeld = true;
     }
 
     public void PutDown()
     {
-        isUp = false;
+        _isUp = false;
         _rigidBody.useGravity = true;
+        Services.PersonManager.personBeingHeld = false;
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.TryGetComponent(out FloorPlane floorPlane))
+        {
+            _isGrounded = true;
+            _myPersonState = PersonState.defaultFloor;
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.TryGetComponent(out Person otherPerson))
+        {
+            _myPersonState = PersonState.interactingOtherPerson;
+            return;
+        }
+        // if (other.gameObject.TryGetComponent())
+    }
+
+
+
 }
+
+public enum PersonState { defaultFloor, beingHeld, interactingOtherPerson, interactingWithObject }

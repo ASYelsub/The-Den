@@ -4,20 +4,31 @@ using UnityEngine;
 
 public class FloorPlane : MonoBehaviour
 {
-    public Material material;
+    public Material activeMaterial;
+    public Material inactiveMaterial;
 
     private void Start()
     {
-        material = GetComponent<MeshRenderer>().material;
+        // material = GetComponent<MeshRenderer>().material;
     }
 
     public void HideFloorPlane()
     {
-       // plane.gameObject.GetComponent<MeshRenderer>().material.color = showPlaneColor;
+        // plane.gameObject.GetComponent<MeshRenderer>().material.color = showPlaneColor;
     }
 
     public void ShowFloorPlane()
     {
-       // plane.gameObject.GetComponent<MeshRenderer>().material.color = showPlaneColor;
+        // plane.gameObject.GetComponent<MeshRenderer>().material.color = showPlaneColor;
+    }
+
+    public void SetActiveVisual()
+    {
+        GetComponent<MeshRenderer>().material = activeMaterial;
+    }
+
+    public void SetInactiveVisual()
+    {
+        GetComponent<MeshRenderer>().material = inactiveMaterial;
     }
 }

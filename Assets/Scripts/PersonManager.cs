@@ -6,6 +6,8 @@ public class PersonManager : MonoBehaviour
 {
     [HideInInspector] public List<Person> allPeople = new List<Person>();
 
+    public bool personBeingHeld = false;
+
     public void Awake()
     {
         Services.PersonManager = this;
