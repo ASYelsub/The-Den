@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Person : MonoBehaviour
 {
+
+    public string myName;
     public float mouseFloatVal;
     bool _isUp;
     bool _isGrounded;
@@ -11,6 +13,7 @@ public class Person : MonoBehaviour
     Rigidbody _rigidBody;
     [SerializeField] LayerMask _planeMask;
     PersonState _myPersonState = PersonState.defaultFloor;
+    public FloorPlane currentFloor;
 
     private void Start()
     {
@@ -66,6 +69,11 @@ public class Person : MonoBehaviour
             _isGrounded = true;
             _myPersonState = PersonState.defaultFloor;
         }
+
+        if (collision.gameObject.TryGetComponent(out Spot spot))
+        {
+            spot.ReceivePerson(this);
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -78,7 +86,13 @@ public class Person : MonoBehaviour
         // if (other.gameObject.TryGetComponent())
     }
 
-
+    public void SetCurrentFloor(FloorPlane floor)
+    {
+        currentFloor = floor;
+        transform.SetParent(floor.transform);
+        transform.localPosition = Vector3.zero + new Vector3(0f, .99f, 0f);
+        PutDown();
+    }
 
 }
 

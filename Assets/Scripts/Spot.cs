@@ -7,10 +7,14 @@ using UnityEngine;
 //is an object that people can interact with that players can place
 public class Spot : MonoBehaviour
 {
-    FloorPlane _associatedPlane;
+    [SerializeField]FloorPlane _associatedPlane;
 
-    void Start()
+    protected virtual void Start()
     {
         transform.SetParent(_associatedPlane.transform);
+    }
+
+    public virtual void ReceivePerson(Person p){
+
     }
 }
